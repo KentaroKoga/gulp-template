@@ -17,7 +17,7 @@ var rename = require('gulp-rename');
 var browserSync = require('browser-sync').create();
 
 
-// コンパイル
+// compile
 gulp.task('sass', function () {
   return gulp.src('./scss/**/*.scss')
   	.pipe(plumber())
@@ -46,14 +46,14 @@ gulp.task('bs-reload', function(){
 	browserSync.reload();
 });
 
-// 変更をwatchする
+// watch
 gulp.task('watch', ['browser-sync'], function () {
   gulp.watch('./scss/**/*.scss', ['sass', 'bs-reload']);
   gulp.watch('*.html', ['bs-reload']);
 });
 
 
-// 画像圧縮
+// compress img
 gulp.task('minifyIMG', function() {
 	return gulp.src('./img/**/*')
 		.pipe(imageResize({
@@ -66,7 +66,7 @@ gulp.task('minifyIMG', function() {
 		.pipe(gulp.dest('public/img'));
 });
 
-// js圧縮
+// compress js
 gulp.task('minifyJS', function(cb){
 	pump([
 		gulp.src('./js/*.js'),
@@ -78,14 +78,14 @@ gulp.task('minifyJS', function(cb){
 	);
 });
 
-// html圧縮
+// compress html
 gulp.task('minifyHTML', function() {
 	return gulp.src('*.html')
 		.pipe(htmlmin({ collapseWhitespace: true }))
 		.pipe(gulp.dest('./public'))
 });
 
-// css圧縮
+// compress css
 gulp.task('minifyCSS', function(){
 	return gulp.src('./css/*.css')
 		.pipe(cleanCSS())
@@ -94,7 +94,7 @@ gulp.task('minifyCSS', function(){
 });
 
 
-// 圧縮タスク実行
+// compress all
 gulp.task('minifyAll', ['minifyIMG', 'minifyJS', 'minifyHTML', 'minifyCSS']);
 
 
